@@ -38,8 +38,8 @@ random.seed(69)
 
 # Training parameters
 BATCH_SIZE = 128
-EPOCHS = 310
-LEARNING_RATE = 5e-4
+EPOCHS = 80
+LEARNING_RATE = 3e-4
 PATCH_SIZE = 4
 NUM_CLASSES = 100
 IMAGE_SIZE = 32
@@ -48,7 +48,7 @@ EMBED_DIM = 256
 NUM_HEADS = 8
 DEPTH = 6
 MLP_DIM = 512
-DROP_RATE = 0.15
+DROP_RATE = 0.10
 WORK_DIR = "working/"
 SAVE_DIR = "working/weights"
 PLOT_DIR = "working/plots"
@@ -272,6 +272,25 @@ def main():
     global SAVE_DIR
     global PLOT_DIR
     
+    #
+    print(f"*** TRAINING STARTED AT: {datetime.now()}")
+    print("*** PARAMETERS:")
+    print(f"BATCH SIZE: {BATCH_SIZE}")
+    print(f"EPOCHS: {EPOCHS}")
+    print(f"LEARNING RATE: {LEARNING_RATE}")
+    print(f"PATCH SIZE: {PATCH_SIZE}")
+    print(f"NUM CLASSES: {NUM_CLASSES}")
+    print(f"IMAGE SIZE: {IMAGE_SIZE}")
+    print(f"CHANNELS: {CHANNELS}")
+    print(f"EMBED DIM: {EMBED_DIM}")
+    print(f"NUM HEADS: {NUM_HEADS}")
+    print(f"DEPTH: {DEPTH}")
+    print(f"MLP DIM: {MLP_DIM}")
+    print(f"DROP RATE: {DROP_RATE}")
+    print(f"WORK DIR: {WORK_DIR}")
+    print(f"SAVE_DIR: {SAVE_DIR}")
+    print(f"PLOT DIR: {PLOT_DIR}")
+    
     train_transforms = transforms.Compose([
         transforms.Resize((70, 70)),
         transforms.RandomResizedCrop(32, scale=(0.8, 1.0)),
@@ -419,6 +438,7 @@ def main():
 ###
 
 def configs(config_file="config.json"):
+    #
     global BATCH_SIZE
     global EPOCHS
     global LEARNING_RATE
@@ -434,6 +454,7 @@ def configs(config_file="config.json"):
     global WORK_DIR
     global SAVE_DIR
     global PLOT_DIR
+    #
     try:
         with open(config_file) as cfg:
             cfgs = json.load(cfg)
