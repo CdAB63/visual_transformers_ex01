@@ -1,0 +1,17 @@
+{
+	"batch_size": 128,
+	"epochs": 310,
+	"learning_rate": 5e-4,
+	"patch_size": 4,
+	"num_classes": 100,
+	"image_size": 32,
+	"channels": 3,
+	"embed_dim": 256,
+	"num_heads": 8,
+	"depth": 6,
+	"mlp_dim": 512,
+	"drop_rate": 0.15,
+	"work_dir": "working/",
+	"save_dir": "working/weights",
+	"plot_dir": "working/plots"
+}
