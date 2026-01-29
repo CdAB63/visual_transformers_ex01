@@ -364,6 +364,42 @@ def main():
     end = datetime.now()
     print(f"Training finished. Elapsed time: {end - start}")
     
+    # =========================
+    # Plot Loss vs Train/Test Accuracy
+    # =========================
+    epochs = range(1, len(train_losses) + 1)
+
+    fig, ax1 = plt.subplots(figsize=(10, 6))
+
+    # Loss (left Y axis)
+    ax1.set_xlabel("Epoch")
+    ax1.set_ylabel("Loss", color="tab:red")
+    ax1.plot(epochs, train_losses, color="tab:red", label="Train Loss")
+    ax1.tick_params(axis="y", labelcolor="tab:red")
+
+    # Accuracy (right Y axis)
+    ax2 = ax1.twinx()
+    ax2.set_ylabel("Accuracy", color="tab:blue")
+    ax2.plot(epochs, train_accurs, color="tab:blue", linestyle="--", label="Train Accuracy")
+    ax2.plot(epochs, test_accurs, color="tab:green", linestyle="-.", label="Test Accuracy")
+    ax2.tick_params(axis="y", labelcolor="tab:blue")
+
+    # Legend (merge both axes)
+    lines1, labels1 = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper center")
+
+    plt.title("Training Loss vs Train/Test Accuracy")
+
+    # Save or show
+    if matplotlib.get_backend() != "agg":
+        plt.show()
+    else:
+        plot_path = os.path.join(PLOT_DIR, "loss_vs_accuracy.png")
+        plt.savefig(plot_path, dpi=150, bbox_inches="tight")
+        plt.close()
+        print(f"[INFO] Loss vs Accuracy plot saved to {plot_path}")
+
     save_path = os.path.join(SAVE_DIR,"model_weights.pt")
     torch.save(model.state_dict(), save_path)
     print(f"Model saved to: {save_path}")
